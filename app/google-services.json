@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "315421788024",
+    "firebase_url": "https://aouririnfos.firebaseio.com",
+    "project_id": "aouririnfos",
+    "storage_bucket": "aouririnfos.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:315421788024:android:877fe0e43c3c0a1ceeea8d",
+        "android_client_info": {
+          "package_name": "fr.glog.aourir_infos"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "315421788024-13fc2h9ctq4ej5r4moj87sh4dq8ldgpr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "fr.glog.aourir_infos",
+            "certificate_hash": "a45c947837747d6814bfe4411314ed564e84055d"
+          }
+        },
+        {
+          "client_id": "315421788024-13v3ad6vkeprtpssgr8sq97pqrtuqmi4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAOxI0RoCvsSkZphPPRjZvaiiBVO_8kNS8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "315421788024-13v3ad6vkeprtpssgr8sq97pqrtuqmi4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

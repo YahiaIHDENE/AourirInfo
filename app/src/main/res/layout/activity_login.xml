@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Login">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/imagefond" />
+
+    <EditText
+        android:id="@+id/email_tel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Email Adresse"
+        android:inputType="textEmailAddress"
+        android:textColor="#3F51B5"
+        android:textColorHint="#3F51B5"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="100dp"
+        app:layout_constraintVertical_bias="0.288" />
+
+    <EditText
+        android:id="@+id/password2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:textColor="#3F51B5"
+        android:textColorHint="#3F51B5"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/email_tel"
+        android:layout_marginTop="20dp"
+        app:layout_constraintVertical_bias="0.128" />
+
+    <ProgressBar
+        android:id="@+id/progressBarlogin"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/password2"
+        android:layout_marginTop="20dp"
+        app:layout_constraintVertical_bias="0.343" />
+
+    <Button
+        android:id="@+id/login2"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="Log in"
+        android:textColor="#E44E1F"
+        android:background="@drawable/rounded_button_white"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/progressBarlogin"
+        android:layout_marginTop="20dp"
+        app:layout_constraintVertical_bias="0.236" />
+
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Create new account"
+        android:textColor="#E44E1F"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/login2"
+        android:layout_marginTop="20dp"
+        app:layout_constraintVertical_bias="0.916" />
+
+    <Button
+        android:id="@+id/signup"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_button"
+        android:text="Sign up"
+        android:textColor="#ffffff"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/textView2"
+        android:layout_marginTop="20dp"
+        app:layout_constraintVertical_bias="0.545" />
+
+    <TextView
+        android:id="@+id/forgotPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="_Password forgotten? click here__"
+        android:textColor="#E44E1F"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/signup"
+        android:layout_marginTop="20dp"
+        app:layout_constraintVertical_bias="0.424" />
+
+    <!--
+
+
+
+
+
+
+    !-->
+
+</RelativeLayout>

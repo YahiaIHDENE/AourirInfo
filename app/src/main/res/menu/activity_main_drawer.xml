@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_home_24dp"
+            android:title="@string/menu_home" />
+        <item
+            android:id="@+id/nav_profile"
+            android:icon="@drawable/ic_account_profile_24dp"
+            android:title="@string/menu_profile" />
+        <item
+            android:id="@+id/nav_notes"
+            android:icon="@drawable/ic_notes_24dp"
+            android:title="@string/menu_notes" />
+        <item
+            android:id="@+id/nav_send"
+            android:icon="@drawable/ic_send_black_24dp"
+            android:title="@string/menu_send" />
+
+        <item
+            android:id="@+id/nav_chat"
+            android:icon="@drawable/ic_added"
+            android:title="@string/menu_chat" />
+
+        <item
+            android:id="@+id/nav_share"
+            android:icon="@drawable/ic_share_24dp"
+            android:title="@string/menu_share" />
+
+    </group>
+
+
+    <item android:title="Exit">
+        <menu>
+            <item
+                android:id="@+id/nav_exit"
+                android:icon="@drawable/ic_exit_to_app_fox_24dp"
+                android:title="Exit" />
+
+        </menu>
+    </item>
+
+</menu>

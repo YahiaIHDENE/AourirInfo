@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    tools:context=".RdvActivity">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/imagefond" />
+
+    <RelativeLayout
+        android:id="@+id/barlayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/barlayout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbarNote"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/colorPrimary"
+                app:popupTheme="@style/AppTheme.PopupOverlay">
+
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/image_Rdv"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentTop="true"
+                    android:contentDescription="@string/nav_header_desc"
+                    android:paddingTop="@dimen/nav_header_vertical_spacing"
+                    app:srcCompat="@mipmap/ic_launcher_round"
+                    android:src="@mipmap/ic_launcher_round"
+                    app:civ_border_width= "21dp"
+                    app:civ_border_color = "#00BCD4"/>
+
+
+                <TextView
+                    android:id="@+id/Title_Rdv"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:textStyle="bold"
+                    android:layout_marginStart="11dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginEnd="171dp"
+                    android:layout_marginRight="171dp"
+                    android:layout_toEndOf="@+id/image_Rdv"
+                    android:layout_toRightOf="@+id/image_Rdv"
+                    android:text="Add new Rdv" />
+
+            </androidx.appcompat.widget.Toolbar>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+
+
+    </RelativeLayout>
+
+
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/barlayout"
+                android:layout_centerHorizontal="true">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="8dp">
+
+                            <ImageButton
+                                android:id="@+id/added_btn"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:background="@drawable/ic_added"
+                                android:visibility="visible"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginLeft="10dp"/>
+
+                            <EditText
+                                android:id="@+id/Title_Rdv2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAlignment="center"
+                                android:layout_marginTop="45dp"
+                                android:layout_centerHorizontal="true"
+                                android:hint="Article title"
+                                android:textColorHint="#E44E1F"
+                                android:textSize="20dp"
+                                android:textStyle="bold"
+                                android:visibility="visible"
+                                android:maxLines="1"
+                                android:textColor="#E44E1F"/>
+
+
+                            <TextView
+                                android:id="@+id/date_Rdv"
+                                android:layout_width="200dp"
+                                android:layout_height="wrap_content"
+                                android:textAlignment="center"
+                                android:layout_below="@id/Title_Rdv2"
+                                android:layout_marginTop="25dp"
+                                android:layout_centerHorizontal="true"
+                                android:hint="DD-MM-YYYY"
+                                android:textSize="20dp"
+                                android:textStyle="italic"
+                                android:visibility="visible"
+                                android:maxLines="2"
+                                android:textColor="#E44E1F"/>
+
+                            <ImageButton
+                                android:id="@+id/editdate"
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"
+                                android:layout_below="@+id/Title_Rdv2"
+                                android:layout_marginTop="20dp"
+                                android:layout_toEndOf="@+id/date_Rdv"
+                                android:layout_toRightOf="@+id/date_Rdv"
+                                android:visibility="visible"
+                                android:background="@drawable/ic_calender" />
+
+
+
+                            <EditText
+                                android:id="@+id/adress_Rdv1"
+                                android:layout_width="250dp"
+                                android:layout_centerHorizontal="true"
+                                android:textAlignment="center"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/date_Rdv"
+                                android:layout_marginTop="15dp"
+                                android:hint="Tiniri, 06025 Akfadou"
+                                android:layout_marginLeft="15dp"
+                                android:textColor="#E44E1F"
+                                android:textSize="20dp"
+                                android:visibility="visible"
+                                android:maxLines="2"
+                                android:textStyle="italic" />
+
+
+                            <EditText
+                                android:id="@+id/Rdvtext"
+                                android:layout_width="match_parent"
+                                android:layout_height="250dp"
+                                android:hint="Details ..."
+                                android:textColorHint="#000000"
+                                android:layout_below="@+id/adress_Rdv1"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="30dp"
+                                android:layout_margin="20dp"
+                                android:padding="10dp"
+                                android:background="#F0EDED"
+                                android:ems="10"
+                                android:gravity="start|top"
+                                android:visibility="visible"
+                                android:inputType="textMultiLine" />
+                            <TextView
+                                android:id="@+id/owner"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Edited by : "
+                                android:layout_centerHorizontal="true"
+                                android:visibility="visible"
+                                android:layout_below="@id/Rdvtext"/>
+
+                            <ImageButton
+                                android:id="@+id/setRdv"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_below="@id/Rdvtext"
+                                android:layout_alignRight="@+id/Rdvtext"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginStart="25dp"
+                                android:layout_marginLeft="25dp"
+                                android:layout_marginTop="25dp"
+                                android:layout_marginEnd="25dp"
+                                android:layout_marginRight="25dp"
+                                android:background="@drawable/ic_modify_note"
+                                android:visibility="visible" />
+
+                            <ImageButton
+                                android:id="@+id/deleteRdv"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_below="@id/Rdvtext"
+                                android:layout_alignLeft="@+id/Rdvtext"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginStart="25dp"
+                                android:layout_marginLeft="25dp"
+                                android:layout_marginTop="25dp"
+                                android:layout_marginEnd="25dp"
+                                android:layout_marginRight="25dp"
+                                android:background="@drawable/ic_delete_note"
+                                android:visibility="visible" />
+
+                            <ProgressBar
+                                android:id="@+id/progressBarAddRddv"
+                                style="?android:attr/progressBarStyle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:layout_centerVertical="true"
+                                android:visibility="invisible"/>
+
+
+
+                            <TextView
+                                android:id="@+id/Title_Rdvclient"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAlignment="center"
+                                android:layout_marginTop="45dp"
+                                android:layout_centerHorizontal="true"
+                                android:textColorHint="#E44E1F"
+                                android:textSize="25dp"
+                                android:textStyle="bold"
+                                android:visibility="visible"
+                                android:textColor="#E44E1F"/>
+
+                            <TextView
+                                android:id="@+id/date_Rdvclient"
+                                android:layout_width="200dp"
+                                android:textAlignment="center"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/Title_Rdvclient"
+                                android:layout_marginTop="20dp"
+                                android:layout_centerHorizontal="true"
+                                android:textSize="20dp"
+                                android:visibility="visible"
+                                android:textStyle="italic"
+                                android:textColor="#E44E1F"/>
+
+
+
+                            <TextView
+                                android:id="@+id/adress_Rdvclient"
+                                android:layout_width="250dp"
+                                android:layout_centerHorizontal="true"
+                                android:textAlignment="center"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/date_Rdvclient"
+                                android:layout_marginTop="15dp"
+                                android:layout_marginLeft="15dp"
+                                android:textColor="#E44E1F"
+                                android:textSize="20dp"
+                                android:visibility="visible"
+                                android:textStyle="italic" />
+
+
+                            <TextView
+                                android:id="@+id/Rdvtextclient"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="No details ..."
+                                android:textColorHint="#000000"
+                                android:layout_margin="20dp"
+                                android:layout_below="@+id/adress_Rdvclient"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="30dp"
+                                android:padding="10dp"
+                                android:background="#F0EDED"
+                                android:ems="10"
+                                android:visibility="visible"
+                                android:gravity="start|top"
+                                android:inputType="textMultiLine" />
+                            </RelativeLayout>
+                </LinearLayout>
+
+            </ScrollView>
+
+
+
+</RelativeLayout>
