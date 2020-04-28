@@ -50,37 +50,69 @@ public class MyFirebaseMessaging extends FirebaseMessagingService {
 
     private void sendNotification(RemoteMessage remoteMessage) {
 
-        String user = remoteMessage.getData().get("user");
         String icon = remoteMessage.getData().get("icon");
         String body = remoteMessage.getData().get("body");
         String title = remoteMessage.getData().get("title");
         System.out.println("0000000000000000000000000000000000000000000000000000000222222211");
+        if (title.equals(" New message")) {
+            String user = remoteMessage.getData().get("user");
+            RemoteMessage.Notification notification = remoteMessage.getNotification();
+            int j = Integer.parseInt(user.replaceAll("[\\D]", ""));
+            Intent intent = new Intent(this, MessageActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putString("userid", user);
+            intent.putExtras(bundle);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            PendingIntent pendingIntent = PendingIntent.getActivity(this, j, intent, PendingIntent.FLAG_ONE_SHOT);
 
-        RemoteMessage.Notification notification = remoteMessage.getNotification();
-        int j = Integer.parseInt(user.replaceAll("[\\D]",""));
-        Intent intent = new Intent(this, MessageActivity.class);
-        Bundle bundle =new Bundle();
-        bundle.putString("userid", user);
-        intent.putExtras(bundle);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, j ,intent, PendingIntent.FLAG_ONE_SHOT);
+            Uri defaultSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
+                    .setSmallIcon(Integer.parseInt(icon))
+                    .setContentTitle(title)
+                    .setContentText(body)
+                    .setAutoCancel(true)
+                    .setSound(defaultSound)
+                    .setContentIntent(pendingIntent);
 
-        Uri defaultSound  = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
-                .setSmallIcon(Integer.parseInt(icon))
-                .setContentTitle(title)
-                .setContentText(body)
-                .setAutoCancel(true)
-                .setSound(defaultSound)
-                .setContentIntent(pendingIntent);
+            NotificationManager noti = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
-        NotificationManager noti = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+            int i = 0;
+            if (j > 0) {
+                i = j;
+            }
+            noti.notify(i, builder.build());
+        }else {
+            String allString = remoteMessage.getData().get("user");
+            String user = allString.substring(allString.indexOf("=")+1,allString.indexOf("+"));
+            String idrvd = allString.substring(allString.indexOf("+")+1,allString.indexOf("#"));
 
-        int i=0;
-        if (j>0){
-            i=j;
+            RemoteMessage.Notification notification = remoteMessage.getNotification();
+            int j = Integer.parseInt(user.replaceAll("[\\D]", ""));
+            Intent intent = new Intent(this, RdvActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putString("rdvid", idrvd);
+            intent.putExtras(bundle);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            PendingIntent pendingIntent = PendingIntent.getActivity(this, j, intent, PendingIntent.FLAG_ONE_SHOT);
+
+            Uri defaultSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
+                    .setSmallIcon(Integer.parseInt(icon))
+                    .setContentTitle(title)
+                    .setContentText(body)
+                    .setAutoCancel(true)
+                    .setSound(defaultSound)
+                    .setContentIntent(pendingIntent);
+
+            NotificationManager noti = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+            int i = 0;
+            if (j > 0) {
+                i = j;
+            }
+            noti.notify(i, builder.build());
+
         }
-        noti.notify(i, builder.build());
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -91,6 +123,7 @@ public class MyFirebaseMessaging extends FirebaseMessagingService {
         if (title.equals(" New message")){
 
             String user = remoteMessage.getData().get("user");
+            System.out.println("11111111111111111111111111111111111111111111111");
 
             RemoteMessage.Notification notification = remoteMessage.getNotification();
             int j = Integer.parseInt(user.replaceAll("[\\D]",""));

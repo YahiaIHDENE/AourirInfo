@@ -44,7 +44,7 @@
         android:layout_marginLeft="10dp"
         android:maxLines="1"
         android:text="Adress Rdv"
-        android:textColor="#2196F3"
+        android:textColor="#1B7EF7"
         android:textStyle="italic" />
 
     <TextView

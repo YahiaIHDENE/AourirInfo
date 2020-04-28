@@ -5,6 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/imagefond" />
+
     <EditText
         android:id="@+id/search_bar_rdv"
         android:layout_width="match_parent"
@@ -20,10 +25,6 @@
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="82dp" />
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/imagefond" />
 
     <ProgressBar
         android:id="@+id/progressBarrdv"
