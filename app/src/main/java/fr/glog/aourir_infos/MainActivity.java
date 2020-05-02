@@ -196,7 +196,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Intent intent = new Intent(Intent.ACTION_SEND);
                 intent.setType("Text/Plain");
                 String titleTxt = "Aourir info app";
-                String body =  "https://github.com/YahiaIHDENE/";
+                String body =  "https://github.com/YahiaIHDENE/AourirInfo/raw/master/application/aourirInfo.apk";
                 intent.putExtra(Intent.EXTRA_SUBJECT,titleTxt);
                 intent.putExtra(Intent.EXTRA_TEXT,body);
                 startActivity(Intent.createChooser(intent, "Share "));

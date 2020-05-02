@@ -88,17 +88,17 @@ public class MyFirebaseMessaging extends FirebaseMessagingService {
             String allString = remoteMessage.getData().get("user");
             String user = allString.substring(allString.indexOf("=")+1,allString.indexOf("+"));
             String idrvd = allString.substring(allString.indexOf("+")+1,allString.indexOf("#"));
-            //String type = allString.substring(allString.indexOf("#")+1,allString.indexOf("/"));
+            String type = allString.substring(allString.indexOf("#")+1,allString.indexOf("/"));
             System.out.println("############################## user =   ["+user+"]   ###########################");
             System.out.println("############################## idrvd =   ["+idrvd+"]   ###########################");
-            //System.out.println("############################## type =   ["+type+"]   ###########################");
+            System.out.println("############################## type =   ["+type+"]   ###########################");
 
             RemoteMessage.Notification notification = remoteMessage.getNotification();
             int j = Integer.parseInt(user.replaceAll("[\\D]", ""));
             Intent intent = new Intent(this, RdvActivity.class);
             Bundle bundle = new Bundle();
             bundle.putString("rdvid", idrvd);
-            //bundle.putString("rvdtype", type);
+            bundle.putString("rvdtype", type);
             intent.putExtras(bundle);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             PendingIntent pendingIntent = PendingIntent.getActivity(this, j, intent, PendingIntent.FLAG_ONE_SHOT);
@@ -156,7 +156,7 @@ public class MyFirebaseMessaging extends FirebaseMessagingService {
             String allString = remoteMessage.getData().get("user");
             String user = allString.substring(allString.indexOf("=")+1,allString.indexOf("+"));
             String idrvd = allString.substring(allString.indexOf("+")+1,allString.indexOf("#"));
-            //String type = allString.substring(allString.indexOf("#")+1,allString.indexOf("/"));
+            String type = allString.substring(allString.indexOf("#")+1,allString.indexOf("/"));
 
             System.out.println("############################## user =   ["+user+"]   ###########################");
             System.out.println("############################## idrvd =   ["+idrvd+"]   ###########################");
@@ -166,7 +166,7 @@ public class MyFirebaseMessaging extends FirebaseMessagingService {
             Intent intent = new Intent(this, MainActivity.class);
             Bundle bundle =new Bundle();
             bundle.putString("rdvid", idrvd);
-            //bundle.putString("rvdtype", type);
+            bundle.putString("rvdtype", type);
             intent.putExtras(bundle);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             PendingIntent pendingIntent = PendingIntent.getActivity(this, j ,intent, PendingIntent.FLAG_ONE_SHOT);

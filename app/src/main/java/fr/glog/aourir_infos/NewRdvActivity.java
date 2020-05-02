@@ -260,7 +260,6 @@ public class NewRdvActivity extends AppCompatActivity implements DialoguePartici
     }
 
 
-
     private void sendNotification(final String receiver, final String username, final String msg, final String idrdv) {
 
         final DatabaseReference token = FirebaseDatabase.getInstance().getReference("Tokens");
@@ -271,52 +270,7 @@ public class NewRdvActivity extends AppCompatActivity implements DialoguePartici
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Token token = snapshot.getValue(Token.class);
                     final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-                    Data data = new Data("="+firebaseUser.getUid()+"+"+idrdv+"#", R.drawable.aourirlogo, "appointment title :" + msg, username+" Added you", receiver);
-                    Sender sender = new Sender(data, token.getToken());
-                    System.out.println("================================================================================  sender sender sender sender    ================================================================================");
-
-                    apiService.sendNotification(sender)
-                            .enqueue(new Callback<MyResponse>() {
-                                @Override
-                                public void onResponse(Call<MyResponse> call, Response<MyResponse> response) {
-                                    if (response.code() == 200) {
-                                        if (response.body().success != 1) {
-                                            Toast.makeText(NewRdvActivity.this, "Failed!" + response, Toast.LENGTH_LONG).show();
-                                        }
-                                    } else {
-                                        Toast.makeText(NewRdvActivity.this, "Notification sent " + response.message(), Toast.LENGTH_LONG).show();
-                                    }
-                                }
-
-                                @Override
-                                public void onFailure(Call<MyResponse> call, Throwable t) {
-
-                                }
-                            });
-                    System.out.println("================================================================================ apiService apiService apiService apiService    ================================================================================");
-
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-    }
-
-/*
-    private void sendNotification(final String receiver, final String username, final String msg, final String idrdv) {
-
-        final DatabaseReference token = FirebaseDatabase.getInstance().getReference("Tokens");
-        Query query = token.orderByKey().equalTo(receiver);
-        query.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    Token token = snapshot.getValue(Token.class);
-                    final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-                    Data data = new Data("="+firebaseUser.getUid()+"+"+idrdv+"#", R.drawable.aourirlogo, "appointment title :" + msg, username+" Added you", receiver);
+                    Data data = new Data("="+firebaseUser.getUid()+"+"+idrdv+"#"+Type+"/", R.drawable.aourirlogo, "appointment title :" + msg, username+" Added you", receiver);
                     Sender sender = new Sender(data, token.getToken());
                     System.out.println("================================================================================  sender sender sender sender    ================================================================================");
                     apiService.sendNotification(sender)
@@ -349,8 +303,6 @@ public class NewRdvActivity extends AppCompatActivity implements DialoguePartici
             }
         });
     }
-
- */
 
 
 }
