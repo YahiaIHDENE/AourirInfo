@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="15dp">
 
 
@@ -10,11 +12,59 @@
         android:layout_height="wrap_content"
         android:hint="\t Search for user ..."/>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:id="@+id/allusers"
+        android:visibility="gone"
+        android:padding="3dp"
+        android:layout_below="@id/search_barD"
+        android:layout_height="wrap_content">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/image_profile"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="11dp"
+            android:contentDescription="@string/nav_header_desc"
+            android:paddingTop="5dp"
+            app:srcCompat="@drawable/aourirlogo"
+            android:src="@drawable/aourirlogo" />
+
+        <TextView
+            android:id="@+id/alluserstext"
+            android:layout_width="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:textStyle="bold"
+            android:textColor="#E44E1F"
+            android:layout_marginStart="11dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginEnd="60dp"
+            android:layout_marginRight="100dp"
+            android:layout_toEndOf="@+id/image_profile"
+            android:layout_toRightOf="@+id/image_profile"
+            android:text="All users" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/checkbox"
+            android:src="@drawable/ic_check_box"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="30dp"
+            android:visibility="invisible"/>
+
+    </RelativeLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/usersListD"
         android:layout_width="match_parent"
         android:layout_height="300dp"
-        android:layout_below="@+id/search_barD" />
+        android:layout_below="@+id/allusers" />
 
 
     <ProgressBar

@@ -1,4 +1,4 @@
-package fr.glog.aourir_infos.notifications;
+package fr.glog.aourir_infos.Notifications;
 
 public class Sender {
     public Data data;

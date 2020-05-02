@@ -1,4 +1,4 @@
-package fr.glog.aourir_infos.notifications;
+package fr.glog.aourir_infos.Notifications;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -19,6 +19,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
+import fr.glog.aourir_infos.MainActivity;
 import fr.glog.aourir_infos.MessageActivity;
 import fr.glog.aourir_infos.RdvActivity;
 
@@ -28,6 +29,8 @@ public class MyFirebaseMessaging extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
+
+            System.out.println("================================================================================ onMessageReceived onMessageReceived onMessageReceived    ================================================================================");
 
         String sented = remoteMessage.getData().get("sented");
 
@@ -85,12 +88,17 @@ public class MyFirebaseMessaging extends FirebaseMessagingService {
             String allString = remoteMessage.getData().get("user");
             String user = allString.substring(allString.indexOf("=")+1,allString.indexOf("+"));
             String idrvd = allString.substring(allString.indexOf("+")+1,allString.indexOf("#"));
+            //String type = allString.substring(allString.indexOf("#")+1,allString.indexOf("/"));
+            System.out.println("############################## user =   ["+user+"]   ###########################");
+            System.out.println("############################## idrvd =   ["+idrvd+"]   ###########################");
+            //System.out.println("############################## type =   ["+type+"]   ###########################");
 
             RemoteMessage.Notification notification = remoteMessage.getNotification();
             int j = Integer.parseInt(user.replaceAll("[\\D]", ""));
             Intent intent = new Intent(this, RdvActivity.class);
             Bundle bundle = new Bundle();
             bundle.putString("rdvid", idrvd);
+            //bundle.putString("rvdtype", type);
             intent.putExtras(bundle);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             PendingIntent pendingIntent = PendingIntent.getActivity(this, j, intent, PendingIntent.FLAG_ONE_SHOT);
@@ -148,11 +156,17 @@ public class MyFirebaseMessaging extends FirebaseMessagingService {
             String allString = remoteMessage.getData().get("user");
             String user = allString.substring(allString.indexOf("=")+1,allString.indexOf("+"));
             String idrvd = allString.substring(allString.indexOf("+")+1,allString.indexOf("#"));
+            //String type = allString.substring(allString.indexOf("#")+1,allString.indexOf("/"));
+
+            System.out.println("############################## user =   ["+user+"]   ###########################");
+            System.out.println("############################## idrvd =   ["+idrvd+"]   ###########################");
+            //System.out.println("############################## type =   ["+type+"]   ###########################");
 
             int j = Integer.parseInt(user.replaceAll("[\\D]",""));
-            Intent intent = new Intent(this, RdvActivity.class);
+            Intent intent = new Intent(this, MainActivity.class);
             Bundle bundle =new Bundle();
             bundle.putString("rdvid", idrvd);
+            //bundle.putString("rvdtype", type);
             intent.putExtras(bundle);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             PendingIntent pendingIntent = PendingIntent.getActivity(this, j ,intent, PendingIntent.FLAG_ONE_SHOT);
@@ -168,7 +182,5 @@ public class MyFirebaseMessaging extends FirebaseMessagingService {
             notifications.getManager().notify(i, builder.build());
 
         }
-
-
     }
 }

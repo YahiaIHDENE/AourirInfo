@@ -38,12 +38,12 @@ import java.util.Map;
 import fr.glog.aourir_infos.Fragments.DatePickerFragment;
 import fr.glog.aourir_infos.model.Rdv;
 import fr.glog.aourir_infos.model.User;
-import fr.glog.aourir_infos.notifications.APIService;
-import fr.glog.aourir_infos.notifications.Client;
-import fr.glog.aourir_infos.notifications.Data;
-import fr.glog.aourir_infos.notifications.MyResponse;
-import fr.glog.aourir_infos.notifications.Sender;
-import fr.glog.aourir_infos.notifications.Token;
+import fr.glog.aourir_infos.Notifications.APIService;
+import fr.glog.aourir_infos.Notifications.Client;
+import fr.glog.aourir_infos.Notifications.Data;
+import fr.glog.aourir_infos.Notifications.MyResponse;
+import fr.glog.aourir_infos.Notifications.Sender;
+import fr.glog.aourir_infos.Notifications.Token;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -260,6 +260,7 @@ public class NewRdvActivity extends AppCompatActivity implements DialoguePartici
     }
 
 
+
     private void sendNotification(final String receiver, final String username, final String msg, final String idrdv) {
 
         final DatabaseReference token = FirebaseDatabase.getInstance().getReference("Tokens");
@@ -272,6 +273,8 @@ public class NewRdvActivity extends AppCompatActivity implements DialoguePartici
                     final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
                     Data data = new Data("="+firebaseUser.getUid()+"+"+idrdv+"#", R.drawable.aourirlogo, "appointment title :" + msg, username+" Added you", receiver);
                     Sender sender = new Sender(data, token.getToken());
+                    System.out.println("================================================================================  sender sender sender sender    ================================================================================");
+
                     apiService.sendNotification(sender)
                             .enqueue(new Callback<MyResponse>() {
                                 @Override
@@ -290,6 +293,8 @@ public class NewRdvActivity extends AppCompatActivity implements DialoguePartici
 
                                 }
                             });
+                    System.out.println("================================================================================ apiService apiService apiService apiService    ================================================================================");
+
                 }
             }
 
@@ -299,6 +304,53 @@ public class NewRdvActivity extends AppCompatActivity implements DialoguePartici
             }
         });
     }
+
+/*
+    private void sendNotification(final String receiver, final String username, final String msg, final String idrdv) {
+
+        final DatabaseReference token = FirebaseDatabase.getInstance().getReference("Tokens");
+        Query query = token.orderByKey().equalTo(receiver);
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Token token = snapshot.getValue(Token.class);
+                    final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+                    Data data = new Data("="+firebaseUser.getUid()+"+"+idrdv+"#", R.drawable.aourirlogo, "appointment title :" + msg, username+" Added you", receiver);
+                    Sender sender = new Sender(data, token.getToken());
+                    System.out.println("================================================================================  sender sender sender sender    ================================================================================");
+                    apiService.sendNotification(sender)
+                            .enqueue(new Callback<MyResponse>() {
+
+                                @Override
+                                public void onResponse(Call<MyResponse> call, Response<MyResponse> response) {
+                                    if (response.code() == 200) {
+                                        if (response.body().success != 1) {
+                                            Toast.makeText(NewRdvActivity.this, "Failed!" + response, Toast.LENGTH_LONG).show();
+                                        }
+                                    } else {
+                                        Toast.makeText(NewRdvActivity.this, "Notification sent " + response.message(), Toast.LENGTH_LONG).show();
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(Call<MyResponse> call, Throwable t) {
+
+                                }
+                            });
+                    System.out.println("================================================================================ apiService apiService apiService apiService    ================================================================================");
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+ */
 
 
 }

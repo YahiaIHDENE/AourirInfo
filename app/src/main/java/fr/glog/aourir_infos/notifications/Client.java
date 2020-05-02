@@ -1,4 +1,4 @@
-package fr.glog.aourir_infos.notifications;
+package fr.glog.aourir_infos.Notifications;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;

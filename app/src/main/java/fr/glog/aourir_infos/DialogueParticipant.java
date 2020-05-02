@@ -8,9 +8,11 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -32,6 +34,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import fr.glog.aourir_infos.Adapter.participantAdapter;
 import fr.glog.aourir_infos.model.User;
@@ -49,6 +52,11 @@ public class DialogueParticipant extends AppCompatDialogFragment {
 
     public  HashMap<String, String> hashMap;
     public String Type;
+    RelativeLayout allusers;
+    TextView alluserstext;
+    ImageView checkbox;
+    String textDialouge ="";
+
     private RecyclerView recyclerView;
     private fr.glog.aourir_infos.Adapter.participantAdapter participantAdapter ;
     private List<User> mUser;
@@ -63,7 +71,13 @@ public class DialogueParticipant extends AppCompatDialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.layout_dialogue,null);
+
+        allusers = view.findViewById(R.id.allusers);
         recyclerView = view.findViewById(R.id.usersListD);
+        alluserstext = view.findViewById(R.id.alluserstext);
+        checkbox = view.findViewById(R.id.checkbox);
+
+
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         final FirebaseUser firebaseUser =FirebaseAuth.getInstance().getCurrentUser();
@@ -91,7 +105,35 @@ public class DialogueParticipant extends AppCompatDialogFragment {
         mUser = new ArrayList<>();
         progressBar = view.findViewById(R.id.progressBarUsers);
         progressBar.setVisibility(View.VISIBLE);
-        String textDialouge ="";
+
+        allusers.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+
+                if (participantAdapter!=null){
+                    participantAdapter.selectAllUsers(Type);
+                    alluserstext.setText("All users ("+ (mUser.size()) +"  selections)");
+                    checkbox.setVisibility(View.VISIBLE);
+                }
+
+
+                return true;
+            }
+        });
+        allusers.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (participantAdapter!=null) {
+                    participantAdapter.deleteselectAllUsers();
+                    alluserstext.setText("All users");
+                    checkbox.setVisibility(View.GONE);
+                }
+
+            }
+        });
+
+
+
         readUsers();
 
         if (hashMap==null){
@@ -110,15 +152,17 @@ public class DialogueParticipant extends AppCompatDialogFragment {
                         public void onClick(DialogInterface dialog, int which) {
 
                             HashMap<String,String> mapUsers;
+
                             mapUsers = participantAdapter.hashMap;
                             mapUsers.put("invite_0",firebaseUser.getUid());
                             listner.ApplyAdds(mapUsers);
+
                         }
 
                     });
         }else {
 
-            String id_owner = (String)hashMap.get("invite_0");
+            String id_owner = hashMap.get("invite_0");
             if (id_owner.equals(firebaseUser.getUid())){
                 textDialouge = "Edit";
                 builder.setView(view)
@@ -153,7 +197,6 @@ public class DialogueParticipant extends AppCompatDialogFragment {
                             }
                         });
             }
-
         }
         return builder.create();
     }
@@ -229,7 +272,14 @@ public class DialogueParticipant extends AppCompatDialogFragment {
                         assert firebaseUser!= null;
                         if(!firebaseUser.getUid().equals(user.id_user)) {
                             if (user.count_stat.equals("Yes")){
-                                mUser.add(user);
+                                if (Type.equals("comittee")){
+                                    if (user.admin.equals("True")){
+                                        mUser.add(user);
+                                    }
+                                }else if(Type.equals("publique")){
+                                    mUser.add(user);
+                                }
+
                             }
                         }
                     }
@@ -237,6 +287,24 @@ public class DialogueParticipant extends AppCompatDialogFragment {
                     participantAdapter = new participantAdapter(getContext(),mUser, hashMap);
                     recyclerView.setAdapter(participantAdapter);
                     progressBar.setVisibility(View.GONE);
+                    
+                    if (hashMap==null){
+
+                        if(textDialouge.equals("Add")&&!mUser.isEmpty()) {
+                            allusers.setVisibility(View.VISIBLE);
+                        }
+                    }else {
+
+                        String id_owner = hashMap.get("invite_0");
+                        if(textDialouge.equals("Edit")&&id_owner.equals(firebaseUser.getUid())&&!mUser.isEmpty()){
+                            allusers.setVisibility(View.VISIBLE);
+                            if (hashMap.size()-1==mUser.size()){
+                                alluserstext.setText("All users ("+mUser.size()+"  selections)");
+                                checkbox.setVisibility(View.VISIBLE);
+                            }
+                        }
+
+                    }
                 }
             }
 

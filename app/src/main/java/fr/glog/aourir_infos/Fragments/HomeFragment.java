@@ -2,7 +2,6 @@ package fr.glog.aourir_infos.Fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.media.session.MediaSessionCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -37,7 +36,7 @@ import fr.glog.aourir_infos.Adapter.RdvAdapter;
 import fr.glog.aourir_infos.NewRdvActivity;
 import fr.glog.aourir_infos.R;
 import fr.glog.aourir_infos.model.Rdv;
-import fr.glog.aourir_infos.notifications.Token;
+import fr.glog.aourir_infos.Notifications.Token;
 
 public class HomeFragment extends Fragment {
 
@@ -190,18 +189,6 @@ public class HomeFragment extends Fragment {
             }
         });
     }
-/*
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-        listner = (addDelete) context;
-    }
-
-    public interface addDelete{
-        void delete(HashMap<String,String> hashMap);
-    }
-
- */
 
 }
 

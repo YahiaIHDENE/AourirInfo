@@ -19,6 +19,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,6 +33,8 @@ public class participantAdapter extends RecyclerView.Adapter<participantAdapter.
     private Context mContext;
     private List<User> mUsers;
     public HashMap<String,String> hashMap;
+    public List<participantAdapter.ViewHolder> holderList = new ArrayList<>();
+    public  int i=0;
 
     public participantAdapter(Context mContext, List<User> mUsers, HashMap<String,String> hashMap){
         this.mContext = mContext;
@@ -40,7 +43,7 @@ public class participantAdapter extends RecyclerView.Adapter<participantAdapter.
 
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public static class ViewHolder extends RecyclerView.ViewHolder{
 
         public TextView username;
         public TextView admin;
@@ -54,28 +57,9 @@ public class participantAdapter extends RecyclerView.Adapter<participantAdapter.
             checkbox= itemView.findViewById(R.id.checkbox);
             admin = itemView.findViewById(R.id.admin);
 
-            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("users");
-            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        User user= snapshot.getValue(User.class);
-                        if (user.admin.equals("True")) {
-                            admin.setVisibility(View.VISIBLE);
-
-                        }
-                    }
-
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            });
-
 
         }
+
     }
 
     @NonNull
@@ -88,6 +72,10 @@ public class participantAdapter extends RecyclerView.Adapter<participantAdapter.
     @Override
     public void onBindViewHolder(@NonNull final participantAdapter.ViewHolder holder, int position) {
 
+        if (holder!=null){
+
+            holderList.add(holder);
+        }
         final  User user = mUsers.get(position);
         holder.username.setText(user.username);
         if(user.ImageURL.equals("default")){
@@ -102,17 +90,20 @@ public class participantAdapter extends RecyclerView.Adapter<participantAdapter.
                 }
             }
 
-            for (Map.Entry<String, String> entry : hashMap.entrySet()) {
-                /*if (i<Integer.getInteger(entry.getKey())){
-                    i = Integer.getInteger(entry.getKey())+1;
-                }*/
-            }
         }else{
             hashMap= new HashMap<>();
         }
 
+        if (user.admin.equals("True")){
+            holder.admin.setVisibility(View.VISIBLE);
+
+        }else {
+            holder.admin.setVisibility(View.INVISIBLE);
+
+        }
+
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        String id_owner = (String)hashMap.get("invite_0");
+        String id_owner = hashMap.get("invite_0");
         if (id_owner!=null){
             if (id_owner.equals(firebaseUser.getUid())) {
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -159,7 +150,76 @@ public class participantAdapter extends RecyclerView.Adapter<participantAdapter.
                         return true;
                     }
                 });
+        }
 
+
+
+    }
+
+    public void selectAllUsers(final String Type){
+
+        final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("users");
+
+
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    User user = snapshot.getValue(User.class);
+                    assert user!= null;
+                    assert firebaseUser!= null;
+                    if(!firebaseUser.getUid().equals(user.id_user)) {
+                        if (user.count_stat.equals("Yes")){
+                            if (Type.equals("comittee")){
+
+                                if (user.admin.equals("True")){
+                                    if (!hashMap.containsValue(user.id_user)){
+
+                                        String time = String.valueOf(System.currentTimeMillis());
+                                        hashMap.put("invite_" + time+i, user.id_user);
+                                        for (int j=0;j<holderList.size();j++){
+
+                                            holderList.get(j).checkbox.setVisibility(View.VISIBLE);
+                                        }
+                                        i++;
+                                    }
+                                }
+                            }else if(Type.equals("publique")){
+                                if (!hashMap.containsValue(user.id_user)){
+
+                                    String time = String.valueOf(System.currentTimeMillis());
+                                    hashMap.put("invite_" + time+i, user.id_user);
+                                    for (int j=0;j<holderList.size();j++){
+
+                                        holderList.get(j).checkbox.setVisibility(View.VISIBLE);
+                                    }
+                                    i++;
+
+
+                                }
+                            }
+
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    public void deleteselectAllUsers(){
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        hashMap.clear();
+        hashMap.put("invite_0" , firebaseUser.getUid());
+        for (int j=0;j<holderList.size();j++){
+
+            holderList.get(j).checkbox.setVisibility(View.GONE);
         }
 
     }

@@ -158,7 +158,6 @@
                     android:layout_height="250dp"
                     android:hint="Details ..."
                     android:textColorHint="#000000"
-                    android:layout_margin="20dp"
                     android:layout_below="@+id/adress_Rdv"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="30dp"

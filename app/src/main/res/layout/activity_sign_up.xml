@@ -78,7 +78,7 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@id/password2"
         android:layout_marginTop="20dp"
-        tools:visibility="invisible" />
+        tools:visibility="gone" />
 
     <Button
         android:id="@+id/signup"

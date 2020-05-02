@@ -27,6 +27,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.HashMap;
 import java.util.List;
 
+import fr.glog.aourir_infos.Login;
+import fr.glog.aourir_infos.MainActivity;
 import fr.glog.aourir_infos.MessageActivity;
 import fr.glog.aourir_infos.R;
 import fr.glog.aourir_infos.model.Chat;
@@ -40,6 +42,7 @@ public class userAdapter extends RecyclerView.Adapter<userAdapter.ViewHolder>{
     private List<User> mUsers;
     private boolean isChat;
     String theLastMessage;
+    boolean isclicked;
 
     public userAdapter(Context mContext, List<User> mUsers,boolean isChat ){
         this.mContext = mContext;
@@ -191,6 +194,7 @@ public class userAdapter extends RecyclerView.Adapter<userAdapter.ViewHolder>{
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         if (dataSnapshot.child("admin").getValue().toString().equals("True")){
                             if (!user.admin.equals("True")){
+                                isclicked =true;
                                 editUser( user,  holder);
                             }
                         }
@@ -201,7 +205,7 @@ public class userAdapter extends RecyclerView.Adapter<userAdapter.ViewHolder>{
 
                     }
                 });
-                return false;
+                return true;
             }
         });
 
@@ -248,13 +252,19 @@ public class userAdapter extends RecyclerView.Adapter<userAdapter.ViewHolder>{
             alerteDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-
                     Toast.makeText(mContext, "Undo", Toast.LENGTH_LONG).show();
+                    user.admin = "True"; // Just for gub
+
                 }
+
+
             });
 
             AlertDialog alertDialogfinal = alerteDialog.create();
             alertDialogfinal.show();
+
+
+
 
 
 
