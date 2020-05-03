@@ -36,14 +36,15 @@ import java.util.Map;
 
 
 import fr.glog.aourir_infos.Fragments.DatePickerFragment;
+import fr.glog.aourir_infos.Notification.APIService;
+import fr.glog.aourir_infos.Notification.Client;
+import fr.glog.aourir_infos.Notification.Data;
+import fr.glog.aourir_infos.Notification.MyResponse;
+import fr.glog.aourir_infos.Notification.Sender;
+import fr.glog.aourir_infos.Notification.Token;
+
 import fr.glog.aourir_infos.model.Rdv;
 import fr.glog.aourir_infos.model.User;
-import fr.glog.aourir_infos.Notifications.APIService;
-import fr.glog.aourir_infos.Notifications.Client;
-import fr.glog.aourir_infos.Notifications.Data;
-import fr.glog.aourir_infos.Notifications.MyResponse;
-import fr.glog.aourir_infos.Notifications.Sender;
-import fr.glog.aourir_infos.Notifications.Token;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -54,26 +55,29 @@ public class NewRdvActivity extends AppCompatActivity implements DialoguePartici
 
     ImageButton shar_btn;
     EditText titleRdv;
-    TextView Title_Rdvtop;
     TextView date;
     ImageButton setdate;
     public EditText adress;
     EditText text;
     ImageButton addRdv;
+    ImageButton setadress;
     ProgressBar progressBar;
     HashMap<String, String> hashMapp;
     APIService apiService;
     boolean notify = false;
-    DatabaseReference databaseRdv;
-
-    Intent intent;
-    String Type;
-    Rdv rdv;
 
     private static final String TAG = "NewRdvActivity";
     private static final int ERROR_DIALOGUE_REQUEST = 9001;
 
     public String addressplace;
+
+    Intent intent;
+    String Type;
+    Rdv rdv;
+    TextView Title_Rdvtop;
+    DatabaseReference databaseRdv;
+
+
 
 
     @Override
@@ -95,6 +99,7 @@ public class NewRdvActivity extends AppCompatActivity implements DialoguePartici
         shar_btn = findViewById(R.id.shar_btn);
         titleRdv = findViewById(R.id.Title_Rdv2);
         Title_Rdvtop = findViewById(R.id.Title_Rdv);
+
         date = findViewById(R.id.date_Rdv);
         setdate = findViewById(R.id.editdate);
         adress = findViewById(R.id.adress_Rdv);
@@ -109,13 +114,13 @@ public class NewRdvActivity extends AppCompatActivity implements DialoguePartici
 
         final Toolbar toolbar = findViewById(R.id.toolbarNote);
         setSupportActionBar(toolbar);
+        setSupportActionBar(toolbar);
         if (Type.equals("comittee")){
             Title_Rdvtop.setText("New comittee article");
         }else if (Type.equals("publique")){
             Title_Rdvtop.setText("New public article");
         }
         getSupportActionBar().setTitle("");
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -128,7 +133,7 @@ public class NewRdvActivity extends AppCompatActivity implements DialoguePartici
         shar_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                OpenDialogue(hashMapp, Type);
+                OpenDialogue(hashMapp);
             }
         });
 
@@ -168,7 +173,7 @@ public class NewRdvActivity extends AppCompatActivity implements DialoguePartici
 
                     FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
                     long time = System.currentTimeMillis();
-                    final  String idRdv = time + "-" + firebaseUser.getUid();
+                    final  String idRdv = String.valueOf(time) + "-" + firebaseUser.getUid();
                     HashMap<String, String> hashMap = new HashMap<>();
                     if (hashMapp != null) {
 
@@ -179,19 +184,16 @@ public class NewRdvActivity extends AppCompatActivity implements DialoguePartici
 
                     }
 
-
-
                     if (Type.equals("comittee")){
 
                         databaseRdv = FirebaseDatabase.getInstance().getReference("RdvComittee");
-                          rdv = new Rdv(titre, date1, textRdv, firebaseUser.getUid(), titre.toLowerCase(), idRdv, adress1, hashMap,"comittee");
+                        rdv = new Rdv(titre, date1, textRdv, firebaseUser.getUid(), titre.toLowerCase(), idRdv, adress1, hashMap,"comittee");
 
                     }else if (Type.equals("publique")){
                         databaseRdv = FirebaseDatabase.getInstance().getReference("RdvPublic");
-                          rdv = new Rdv(titre, date1, textRdv, firebaseUser.getUid(), titre.toLowerCase(), idRdv, adress1, hashMap,"publique");
+                        rdv = new Rdv(titre, date1, textRdv, firebaseUser.getUid(), titre.toLowerCase(), idRdv, adress1, hashMap,"publique");
 
-                    }
-                    databaseRdv.child(idRdv).setValue(rdv).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    }                    databaseRdv.child(idRdv).setValue(rdv).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
 
@@ -238,7 +240,7 @@ public class NewRdvActivity extends AppCompatActivity implements DialoguePartici
 
     }
 
-    private void OpenDialogue(HashMap<String, String> hashMap, String Type) {
+    private void OpenDialogue(HashMap<String, String> hashMap) {
         DialogueParticipant dialogueParticipant = new DialogueParticipant(hashMap, Type);
         dialogueParticipant.show(getSupportFragmentManager(), "Participator dialogue ");
     }
@@ -270,12 +272,12 @@ public class NewRdvActivity extends AppCompatActivity implements DialoguePartici
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Token token = snapshot.getValue(Token.class);
                     final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-                    Data data = new Data("="+firebaseUser.getUid()+"+"+idrdv+"#"+Type+"/", R.drawable.aourirlogo, "appointment title :" + msg, username+" Added you", receiver);
+                    Data data = new Data("="+firebaseUser.getUid()+"+"+idrdv+"#"+Type+"/", R.drawable.aourirlogo, "Article title :" + msg, username+" Added you", receiver);
                     Sender sender = new Sender(data, token.getToken());
                     System.out.println("================================================================================  sender sender sender sender    ================================================================================");
+
                     apiService.sendNotification(sender)
                             .enqueue(new Callback<MyResponse>() {
-
                                 @Override
                                 public void onResponse(Call<MyResponse> call, Response<MyResponse> response) {
                                     if (response.code() == 200) {
@@ -292,8 +294,6 @@ public class NewRdvActivity extends AppCompatActivity implements DialoguePartici
 
                                 }
                             });
-                    System.out.println("================================================================================ apiService apiService apiService apiService    ================================================================================");
-
                 }
             }
 

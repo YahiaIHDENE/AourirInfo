@@ -193,13 +193,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
 
             case R.id.nav_share:
-                Intent intent = new Intent(Intent.ACTION_SEND);
-                intent.setType("Text/Plain");
-                String titleTxt = "Aourir info app";
-                String body =  "https://github.com/YahiaIHDENE/AourirInfo/raw/master/application/aourirInfo.apk";
-                intent.putExtra(Intent.EXTRA_SUBJECT,titleTxt);
-                intent.putExtra(Intent.EXTRA_TEXT,body);
-                startActivity(Intent.createChooser(intent, "Share "));
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_SUBJECT,"Aourir info app");
+                sendIntent.putExtra(Intent.EXTRA_TEXT, "https://github.com/YahiaIHDENE/AourirInfo/raw/master/application/aourirInfo.apk");
+                sendIntent.setType("text/plain");
+
+                Intent shareIntent = Intent.createChooser(sendIntent, null);
+                startActivity(shareIntent);
 
                 break;
 

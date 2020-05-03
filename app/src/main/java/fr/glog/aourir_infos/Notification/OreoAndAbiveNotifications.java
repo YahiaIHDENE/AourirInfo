@@ -1,4 +1,4 @@
-package fr.glog.aourir_infos.Notifications;
+package fr.glog.aourir_infos.Notification;
 
 import android.app.Notification;
 import android.app.NotificationChannel;

@@ -34,9 +34,9 @@ import java.util.Map;
 
 import fr.glog.aourir_infos.Adapter.RdvAdapter;
 import fr.glog.aourir_infos.NewRdvActivity;
+import fr.glog.aourir_infos.Notification.Token;
 import fr.glog.aourir_infos.R;
 import fr.glog.aourir_infos.model.Rdv;
-import fr.glog.aourir_infos.Notifications.Token;
 
 public class HomeFragment extends Fragment {
 

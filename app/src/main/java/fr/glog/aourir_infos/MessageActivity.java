@@ -30,14 +30,15 @@ import java.util.HashMap;
 import java.util.List;
 
 import fr.glog.aourir_infos.Adapter.messageAdapter;
+import fr.glog.aourir_infos.Notification.APIService;
+import fr.glog.aourir_infos.Notification.Client;
+import fr.glog.aourir_infos.Notification.Data;
+import fr.glog.aourir_infos.Notification.MyResponse;
+import fr.glog.aourir_infos.Notification.Sender;
+import fr.glog.aourir_infos.Notification.Token;
 import fr.glog.aourir_infos.model.Chat;
 import fr.glog.aourir_infos.model.User;
-import fr.glog.aourir_infos.Notifications.APIService;
-import fr.glog.aourir_infos.Notifications.Client;
-import fr.glog.aourir_infos.Notifications.Data;
-import fr.glog.aourir_infos.Notifications.MyResponse;
-import fr.glog.aourir_infos.Notifications.Sender;
-import fr.glog.aourir_infos.Notifications.Token;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
